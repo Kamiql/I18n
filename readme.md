@@ -1,10 +1,8 @@
 # I18n Language System
-***
 ## Introduction
 
 The I18n API allows developers to easily create multilingual applications. It supports the localization of text and other content in various languages.
 
-***
 ##  Installation
 
 Add the following repository and dependency to your `pom.xml`:
@@ -26,8 +24,7 @@ Add the following repository and dependency to your `pom.xml`:
     </dependency>
 </dependencies>
 ```
-***
-### Usage
+## Usage
 
 To initialize the I18n system, create a new instance of the `I18nProvider`. If no configuration is provided, a default configuration file will be automatically generated. The configuration file typically contains the default language and the localized messages.
 
@@ -54,8 +51,7 @@ new I18n.Builder("message_key", player)
 - `player`: The recipient of the message. Their locale is used to determine the appropriate translation.
 - `hasPrefix(true)`: Adds a prefix to the message, either from the default configuration or a custom one.
 - `withPlaceholder`: Replaces placeholders like {PLAYER} in the message with specific values.
-***
-### Configuration
+## Configuration
 The configuration file for the I18n system is written in YAML format and defines:
 
 - Custom prefixes
@@ -84,12 +80,12 @@ translations:
 
 ```
 ***
-### Key Components:
+## Key Components:
 1. `defaultLocale`: The fallback language in case a player's locale does not have a matching translation.
 2. `prefix`: Optional prefixes that can be applied to messages, which can be customized or disabled for specific cases.
 3. `translations`: Key-value pairs where each key corresponds to a message identifier, and each value contains translations for different locales (e.g., `en`, `de`).
 ***
-### Placeholders
+## Placeholders
 
 Messages can include placeholders like `{0}`, `{PLAYER}`, which will be dynamically replaced at runtime by values provided through the `Builder`. This is especially useful for inserting player names or other runtime data into messages.
 
