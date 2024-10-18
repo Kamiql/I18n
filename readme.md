@@ -1,5 +1,4 @@
 # I18n Language System
-## Introduction
 
 The I18n API allows developers to easily create multilingual applications. It supports the localization of text and other content in various languages.
 
