@@ -13,7 +13,8 @@ Add the following repository and dependency to your `pom.xml`:
         <url>https://eldonexus.de/repository/maven-releases/</url>
     </repository>
 </repositories>
-    
+```
+```xml
 <dependencies>
     <dependency>
         <groupId>de.kamiql.I18n</groupId>
