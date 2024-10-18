@@ -19,11 +19,12 @@ Add the following repository and dependency to your `pom.xml`:
     <dependency>
         <groupId>de.kamiql.I18n</groupId>
         <artifactId>I18n</artifactId>
-        <version>2.0.16-SNAPSHOT</version>
+        <version>{version}</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
 ```
+replace `{version}` with the current [version](https://eldonexus.de/#browse/search=keyword%3Dde.kamiql.i18n).
 ## Usage
 
 To initialize the I18n system, create a new instance of the `I18nProvider`. If no configuration is provided, a default configuration file will be automatically generated. The configuration file typically contains the default language and the localized messages.
@@ -105,3 +106,6 @@ new I18n.Builder("message_key_3", player)
         .sendMessageAsComponent();
 ```
 This would replace `{0}` with "Custom Value" when the message is sent.
+
+## NOTE
+This api is still in development, so feel free to report bugs!
