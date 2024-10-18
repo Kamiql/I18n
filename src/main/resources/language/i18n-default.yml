@@ -1,0 +1,26 @@
+defaultLocale: 'en-us'
+
+prefix:
+  - "<gray>[<aqua>I18n<gray>] >> "
+
+translations:
+  #Do NOT use &, § etc. - MiniMessage colorcodes are required > https://docs.advntr.dev/minimessage/format.html
+  message_key_2:
+    de-us:
+      - '<gray>Dies ist eine Nachricht 2</gray>'
+      - '<gray>Dies ist eine Nachricht 3</gray>'
+    en-us:
+      - '<gray>This is a message 2</gray>'
+      - '<gray>This is a message 3</gray>'
+  message_key_3:
+    de-de:
+      - '<gray>Dies ist eine Nachricht 4</gray>'
+      - '<gray>Dies ist eine Nachricht mit einem Platzhalter {0}</gray>'
+    en-us:
+      - '<gray>This is a message 4</gray>'
+      - '<gray>This is a message with a placeholder {0}</gray>'
+  message_key_4:
+    de-de:
+      - '<gray>{0}, {1}, {2} etc. Platzhalter...</gray>'
+    en-us:
+      - '<gray>{0}, {1}, {2} etc. Placeholder...</gray>'
