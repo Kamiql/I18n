@@ -104,4 +104,4 @@ new I18n.Builder("message_key_3", player)
         .build()
         .sendMessageAsComponent();
 ```
-This would replace {0} with "Custom Value" when the message is sent.
+This would replace `{0}` with "Custom Value" when the message is sent.
