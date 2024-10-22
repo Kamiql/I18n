@@ -10,28 +10,28 @@ Add the following repository and dependency to your `pom.xml`:
 <repositories>
     <repository>
         <id>eldonexus</id>
-        <url>https://eldonexus.de/repository/maven-releases/</url>
+        <url>https://eldonexus.de/repository/maven-snapshots/</url>
     </repository>
 </repositories>
 ```
 ```xml
 <dependencies>
     <dependency>
-        <groupId>de.kamiql.I18n</groupId>
+        <groupId>de.kamiql.i18n</groupId>
         <artifactId>I18n</artifactId>
         <version>{version}</version>
         <scope>compile</scope>
     </dependency>
 </dependencies>
 ```
-replace `{version}` with the current [version](https://eldonexus.de/#browse/search=keyword%3Dde.kamiql.i18n).
+replace `{version}` with the current [version](https://eldonexus.de/#browse/browse:maven-snapshots:de%2Fkamiql%2Fi18n%2FI18n).
 ## Usage
 
 To initialize the I18n system, create a new instance of the `I18nProvider`. If no configuration is provided, a default configuration file will be automatically generated. The configuration file typically contains the default language and the localized messages.
 
 ```java
 new I18nProvider(this)
-        .initialize(YamlConfiguration config);
+        .initialize(@Nullable YamlConfiguration config);
 ```
 
 The main component of the system is the `I18n` class, which allows you to build and manage messages that adapt to the player's locale. Each message can be customized with placeholders and prefixes. The message will be fetched based on the player’s locale or fallback to a default locale if necessary.

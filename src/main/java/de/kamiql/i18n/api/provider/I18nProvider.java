@@ -34,10 +34,10 @@ public class I18nProvider {
      * @return if the initialization is successfully
      */
     @Required
-    public boolean initialize(@Nullable YamlConfiguration config)
+    public boolean initialize(@Nullable YamlConfiguration config, Boolean replace)
     {
         try {
-            setupLanguageFile(config);
+            setupLanguageFile(config, replace);
             logInitialization();
             return true;
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public class I18nProvider {
         }
     }
 
-    private void setupLanguageFile(@Nullable YamlConfiguration yaml)
+    private void setupLanguageFile(@Nullable YamlConfiguration yaml, Boolean replace)
     {
         File file = (yaml != null)
                 ? new File(plugin.getDataFolder(), "language/i18n.yml")
@@ -61,8 +61,10 @@ public class I18nProvider {
 
         try {
             if (yaml != null) {
-                yaml.save(file);
-                plugin.saveResource("language/i18n.yml", true);
+                if (replace) {
+                    yaml.save(file);
+                    plugin.saveResource("language/i18n.yml", true);
+                }
                 config = yaml;
             } else {
                 plugin.saveResource("language/i18n-default.yml", false);
