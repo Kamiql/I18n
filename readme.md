@@ -33,6 +33,7 @@ To initialize the I18n system, create a new instance of the `I18nProvider`. If n
 new I18nProvider(this)
         .initialize(@Nullable YamlConfiguration config);
 ```
+Note: The given configuration File, should be located at `resources\\language\\i18n.yml`!
 
 The main component of the system is the `I18n` class, which allows you to build and manage messages that adapt to the player's locale. Each message can be customized with placeholders and prefixes. The message will be fetched based on the player’s locale or fallback to a default locale if necessary.
 

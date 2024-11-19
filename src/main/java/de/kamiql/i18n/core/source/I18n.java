@@ -6,7 +6,6 @@ import de.kamiql.i18n.core.annotations.Required;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -84,7 +83,7 @@ public class I18n {
             StringBuilder prefixedMessageBuilder = new StringBuilder();
 
             for (String line : messageLines) {
-                prefixedMessageBuilder.append(prefix).append(line).append("\n");
+                prefixedMessageBuilder.append(prefix).append(" ").append(line).append("\n");
             }
 
             message = prefixedMessageBuilder.toString().trim();

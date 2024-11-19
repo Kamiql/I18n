@@ -1,6 +1,7 @@
 package de.kamiql.i18n.api.provider;
 
-import de.kamiql.i18n.core.annotations.Required;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
@@ -11,7 +12,6 @@ import java.util.logging.Logger;
 
 public class I18nProvider {
     private final Plugin plugin;
-    private static I18nProvider instance;
 
     private static YamlConfiguration config;
     private final Logger logger;
@@ -20,60 +20,43 @@ public class I18nProvider {
                     {e}
                     """;
 
-    public I18nProvider(@NotNull Plugin plugin)
-    {
-        instance = this;
+    public I18nProvider(@NotNull Plugin plugin, @Nullable YamlConfiguration config) {
         this.plugin = plugin;
         this.logger = Logger.getLogger(plugin.getName() + " <I18n>");
-    }
+        this.config = config;
 
-    /**
-     * Initialize the language system
-     *
-     * @param config should a custom config be used?
-     * @return if the initialization is successfully
-     */
-    @Required
-    public boolean initialize(@Nullable YamlConfiguration config, Boolean replace)
-    {
         try {
-            setupLanguageFile(config, replace);
-            logInitialization();
-            return true;
+            if (config != null) {
+                logInitialization();
+            } else {
+                throw new RuntimeException("I18n configuration is null");
+            }
         } catch (Exception e) {
             logger.severe(error
                     .replace("{message}", "Couldn´t enable")
                     .replace("{e}", e.getMessage())
             );
-            return false;
         }
     }
 
-    private void setupLanguageFile(@Nullable YamlConfiguration yaml, Boolean replace)
-    {
-        File file = (yaml != null)
-                ? new File(plugin.getDataFolder(), "language/i18n.yml")
-                : new File(plugin.getDataFolder(), "language/i18n-default.yml");
-
-        if (!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
-        }
+    public I18nProvider(@NotNull Plugin plugin) {
+        this.plugin = plugin;
+        this.logger = Logger.getLogger(plugin.getName() + " <I18n>");
 
         try {
-            if (yaml != null) {
-                if (replace) {
-                    yaml.save(file);
-                    plugin.saveResource("language/i18n.yml", true);
-                }
-                config = yaml;
-            } else {
-                plugin.saveResource("language/i18n-default.yml", false);
-                config = YamlConfiguration.loadConfiguration(file);
-            }
+            this.config = loadDefaultConfig();
+            logInitialization();
         } catch (Exception e) {
-            logger.severe(error.replace("{message}", "Failed to handle language file")
-                    .replace("{e}", e.getMessage()));
+            logger.severe(error
+                    .replace("{message}", "Couldn´t load config")
+                    .replace("{e}", e.getMessage())
+            );
         }
+    }
+
+    private YamlConfiguration loadDefaultConfig() {
+        plugin.saveResource("language/i18n-default.yml", false);
+        return YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "language/i18n-default.yml"));
     }
 
     private void logInitialization()
@@ -81,23 +64,25 @@ public class I18nProvider {
         String message =
                 """
                 
-                ===========================================================================================================
-                         _                                                _____           _                 \s
-                        | |                                              /  ___|         | |                \s
-                        | |     __ _ _ __   __ _ _   _  __ _  __ _  ___  \\ --. _   _ ___| |_ ___ _ __ ___  \s
-                        | |    / _ | '_ \\ / _ | | | |/ _ |/ _ |/ _ \\  --. \\ | | / __| __/ _ \\ '_  _ \\ \s
-                        | |___| (_| | | | | (_| | |_| | (_| | (_| |  __/ /\\__/ / |_| \\__ \\ ||  __/ | | | | |\s
-                        \\_____/\\__,_|_| |_|\\__, |\\__,_|\\__,_|\\__, |\\___| \\____/ \\__, |___/\\__\\___|_| |_| |_|\s
-                                            __/ |             __/ |              __/ |                      \s
-                                           |___/             |___/              |___/                       \s
-                ============================================================================================================
-                Language System by: kamiql
-                Version: {VERSION}
-                ============================================================================================================
+                <gray>===========================================================================================================
+                <yellow>        _                                                _____           _                 \s
+                <yellow>        | |                                              /  ___|         | |                \s
+                <yellow>        | |     __ _ _ __   __ _ _   _  __ _  __ _  ___  \\ --. _   _ ___| |_ ___ _ __ ___  \s
+                <yellow>        | |    / _ | '_ \\ / _ | | | |/ _ |/ _ |/ _ \\  --. \\ | | / __| __/ _ \\ '_  _ \\ \s
+                <yellow>        | |___| (_| | | | | (_| | |_| | (_| | (_| |  __/ /\\__/ / |_| \\__ \\ ||  __/ | | | | |\s
+                <yellow>        \\_____/\\__,_|_| |_|\\__, |\\__,_|\\__,_|\\__, |\\___| \\____/ \\__, |___/\\__\\___|_| |_| |_|\s
+                <yellow>                            __/ |             __/ |              __/ |                      \s
+                <yellow>                           |___/             |___/              |___/                       \s
+                <gray>============================================================================================================
+                <gray>Language System by: <aqua>kamiql
+                <gray>Version: <aqua>{VERSION}
+                <gray>
+                <gray><red>NOTE: This is in Development
+                <gray>============================================================================================================
                 """;
 
-        logger.info(message
-                .replace("{VERSION}", "2.0.15"));
+        Bukkit.getConsoleSender().sendMessage(MiniMessage.miniMessage().deserialize(message
+                .replace("{VERSION}", plugin.getPluginMeta().getVersion())));
     }
 
     public static YamlConfiguration getConfig() { return config; }

@@ -6,7 +6,7 @@ prefix:
 translations:
   #Do NOT use &, § etc. - MiniMessage colorcodes are required > https://docs.advntr.dev/minimessage/format.html
   message_key_2:
-    de-us:
+    de-de:
       - '<gray>Dies ist eine Nachricht 2</gray>'
       - '<gray>Dies ist eine Nachricht 3</gray>'
     en-us:
